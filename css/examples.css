@@ -112,7 +112,7 @@ section.demo * {
 section.demo {
 	font-size: 0;
 	text-align: center;
-	background-image: url("../img/example_bg_v.png");
+	/*background-image: url("../img/example_bg_v.png");*/
 }
 section.demo.fullheight {
 	min-height: 100%;
@@ -650,7 +650,7 @@ html.touch .menuwrap > a.prev:active, html.touch .menuwrap > a.next:active, html
 }
 html.touch .menuwrap > a.prev {
 	margin-right: 70px;
-	padding-right: 10px; 
+	padding-right: 10px;
 }
 html.touch .menuwrap > a.next {
 	margin-left: 70px;
