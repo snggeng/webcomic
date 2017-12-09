@@ -205,7 +205,7 @@
 					</div>
 					<div id="parallax28" >
 						<div>
-							<img src="./images/29.png	" alt="">
+							<img src="./images/29.gif	" alt="">
 						</div>
 					</div>
 					<div id="parallax29" >
@@ -272,13 +272,14 @@
 						// init controller
 						var controller = new ScrollMagic.Controller({globalSceneOptions: {triggerHook: "onEnter", duration: "200%"}});
 
-						// build scenes
-						// new ScrollMagic.Scene({triggerElement: "#parallax1"})
-						// 				.setTween("#parallax1 > div", {y: "80%", ease: Linear.easeNone})
-						// 				.addIndicators()
-						// 				.addTo(controller);
+						// initialize assets
 						let audio1 = $('#footsteps').get(0);
 						let audio2 = $('#panting').get(0);
+
+						// helpers for animations
+						let zoomAnimation = element => TweenMax.to(element, 0.5, {css: {scaleX: 0.2, scaleY: 0.5}, ease: Linear.easeNone})
+
+						// build scenes
 						new ScrollMagic.Scene({triggerElement: "#parallax2"})
 										.setTween("#parallax2 > div", {y: "80%", ease: Linear.easeNone})
 										.addTo(controller)
@@ -299,16 +300,23 @@
 											console.log(e.progress.toFixed(3))
 										})
 						new ScrollMagic.Scene({triggerElement: "#parallax4"})
-										.setTween("#parallax4 > div", {x: "20%", ease: Linear.easeNone})
+										.setTween("#parallax4 > div", {x: "50%", ease: Linear.easeNone})
 										.addTo(controller);
 						new ScrollMagic.Scene({triggerElement: "#parallax5"})
 										.setTween("#parallax5 > div", {x: "-50%", ease: Linear.easeNone})
 										.addTo(controller);
-						for (let i = 0; i < 26; i++) {
+						for (let i = 0; i < 36; i++) {
 							if (i % 2 == 0) {
 								new ScrollMagic.Scene({triggerElement: `#parallax${5+i}`})
 												.setTween(`#parallax${5+i} > div`, {x: "20%", ease: Linear.easeNone})
 												.addTo(controller);
+							} else if (i == 27) {
+								console.log(`#parallax${5+i}`, 'yes')
+								new ScrollMagic.Scene({triggerElement: `#parallax${5+i}`})
+												.setTween(zoomAnimation(`#parallax${5+i}`))
+												//.setTween(`#parallax${5+i} > div`, {x: "20%", ease: Linear.easeNone})
+												.addTo(controller);
+
 							} else {
 								new ScrollMagic.Scene({triggerElement: `#parallax${5+i}`})
 												.setTween(`#parallax${5+i} > div`, {x: "-20%", ease: Linear.easeNone})
