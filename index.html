@@ -4,15 +4,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=500" />
-	<meta name="keywords" content="ScrollMagic, example, scrolling, attaching, scrollbar, tween, tweenmax" />
-	<meta name="author"	content="Jan Paepke (www.janpaepke.de)" />
+	<meta name="keywords" content="ScrollMagic, web comic, scrolling, parallax, tower of god" />
+	<meta name="author"	content="Geng Sng (www.geng.io)" />
 	<title>Tower of God: Web Comic</title>
-
-	<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic|Josefin+Slab:400,700italic' rel='stylesheet' type='text/css'> -->
 	<link rel="stylesheet" href="./css/normalize.css" type="text/css">
 	<link rel="stylesheet" href="./css/style.css" type="text/css">
 	<link rel="stylesheet" href="./css/examples.css" type="text/css">
-	<!-- <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon"> -->
 
 	<script type="text/javascript" src="./js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="./js/lib/highlight.pack.js"></script>
@@ -22,7 +19,7 @@
 	<script type="text/javascript" src="./js/lib/greensock/TweenMax.min.js"></script>
 	<script type="text/javascript" src="./scrollmagic/uncompressed/ScrollMagic.js"></script>
   <script type="text/javascript" src="./scrollmagic/uncompressed/plugins/animation.gsap.js"></script>
-	<script type="text/javascript" src="./scrollmagic/uncompressed/plugins/debug.addIndicators.js"></script>
+	<!-- <script type="text/javascript" src="./scrollmagic/uncompressed/plugins/debug.addIndicators.js"></script> -->
 </head>
 <body>
 	<!-- <ul id="menu"></ul> -->
@@ -43,6 +40,9 @@
 						<a href="#" class="viewsource">view source</a>
 					</div>
 				</section> -->
+				<audio id='footsteps' src="./music/footsteps-4.mp3" type="audio/mpeg" style='display: none;'>
+				</audio>
+				<audio id='panting' src="./music/panting.wav" type="audio/wav" style='display: none;'></audio>
 				<section class="demo">
 					<style type="text/css">
 						.parallaxParent {
@@ -80,7 +80,7 @@
 					</div>
 					<div class="spacer s0"></div>
 					<div id="parallax3" class="parallaxParent">
-						<div style="background-image: url(./images/03.png);"></div>
+						<div style="background-image: url('./images/03.png');"></div>
 					</div>
 					<!-- <div class="spacer s3"></div> -->
 					<div id="parallax4" >
@@ -277,34 +277,41 @@
 						// 				.setTween("#parallax1 > div", {y: "80%", ease: Linear.easeNone})
 						// 				.addIndicators()
 						// 				.addTo(controller);
-
+						let audio1 = $('#footsteps').get(0);
+						let audio2 = $('#panting').get(0);
 						new ScrollMagic.Scene({triggerElement: "#parallax2"})
 										.setTween("#parallax2 > div", {y: "80%", ease: Linear.easeNone})
-										.addIndicators()
-										.addTo(controller);
+										.addTo(controller)
+										.on('enter leave', (e) => {
+											e.type == 'enter' ? footsteps.play() : footsteps.pause()
+										})
+										.on('progress', (e) => {
+											console.log(e.progress.toFixed(3))
+										})
 
 						new ScrollMagic.Scene({triggerElement: "#parallax3"})
 										.setTween("#parallax3 > div", {y: "80%", ease: Linear.easeNone})
-										.addIndicators()
-										.addTo(controller);
+										.addTo(controller)
+										.on('enter leave', (e) => {
+											e.type == 'enter' ? panting.play() : panting.pause()
+										})
+										.on('progress', (e) => {
+											console.log(e.progress.toFixed(3))
+										})
 						new ScrollMagic.Scene({triggerElement: "#parallax4"})
 										.setTween("#parallax4 > div", {x: "20%", ease: Linear.easeNone})
-										.addIndicators()
 										.addTo(controller);
 						new ScrollMagic.Scene({triggerElement: "#parallax5"})
 										.setTween("#parallax5 > div", {x: "-50%", ease: Linear.easeNone})
-										.addIndicators()
 										.addTo(controller);
 						for (let i = 0; i < 26; i++) {
 							if (i % 2 == 0) {
 								new ScrollMagic.Scene({triggerElement: `#parallax${5+i}`})
 												.setTween(`#parallax${5+i} > div`, {x: "20%", ease: Linear.easeNone})
-												.addIndicators()
 												.addTo(controller);
 							} else {
 								new ScrollMagic.Scene({triggerElement: `#parallax${5+i}`})
 												.setTween(`#parallax${5+i} > div`, {x: "-20%", ease: Linear.easeNone})
-												.addIndicators()
 												.addTo(controller);
 							}
 
@@ -315,6 +322,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="./js/tracking.js"></script>
 </body>
 </html>
