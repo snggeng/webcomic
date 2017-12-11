@@ -106,7 +106,7 @@ function getCode($elem) {
 function showCode ($elem) {
 	var
 		code = getCode($elem);
-	
+
 	if ($elem.is("section.demo")) {
 		// complicated but i want to keep identation.
 		var $desc = $("div#example-wrapper section#titlechart").clone();
@@ -140,7 +140,7 @@ function showCode ($elem) {
 					.addClass("codewrap")
 					.append($ln)
 					.append($code);
-	
+
 	$("<div>")
 		.attr("id", "codecontainer")
 		.append($codewrap)
@@ -205,7 +205,7 @@ function enableScroll (elem) {
 
 $(document).ready(function () {
 	// prepare highlight js
-	
+
 
 	// build menu
 	var
@@ -386,7 +386,7 @@ $(document).on("mouseup mousemove", function (e) {
 
 			$input.val(val.toFixed(decimals));
 			if ($(this).hasClass("liveupdate")) {
-				$input.change();	
+				$input.change();
 			}
 		}
 	});
@@ -406,6 +406,3 @@ $(document).on("orientationchange", function (e) {
 	}
 });
 $(document).trigger("orientationchange");
-
-
-

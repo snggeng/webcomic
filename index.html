@@ -40,6 +40,8 @@
 						<a href="#" class="viewsource">view source</a>
 					</div>
 				</section> -->
+				<!-- Audio Assets -->
+				<audio id='bgm' src="./music/bgm.mp3" type="audio/mpeg" ></audio>
 				<audio id='footsteps' src="./music/footsteps-4.mp3" type="audio/mpeg" style='display: none;'>
 				</audio>
 				<audio id='panting' src="./music/panting.wav" type="audio/wav" style='display: none;'></audio>
@@ -273,6 +275,7 @@
 						var controller = new ScrollMagic.Controller({globalSceneOptions: {triggerHook: "onEnter", duration: "200%"}});
 
 						// initialize assets
+						let bgm = $('#bgm').get(0);
 						let audio1 = $('#footsteps').get(0);
 						let audio2 = $('#panting').get(0);
 
@@ -280,6 +283,10 @@
 						let zoomAnimation = element => TweenMax.to(element, 0.5, {css: {scaleX: 0.2, scaleY: 0.5}, ease: Linear.easeNone})
 
 						// build scenes
+						new ScrollMagic.Scene({triggerElement: "#parallax1"})
+										.setTween(zoomAnimation("#parallax1"))
+										.addTo(controller)
+										.on('enter', () => bgm.play())
 						new ScrollMagic.Scene({triggerElement: "#parallax2"})
 										.setTween("#parallax2 > div", {y: "80%", ease: Linear.easeNone})
 										.addTo(controller)
@@ -294,7 +301,8 @@
 										.setTween("#parallax3 > div", {y: "80%", ease: Linear.easeNone})
 										.addTo(controller)
 										.on('enter leave', (e) => {
-											e.type == 'enter' ? panting.play() : panting.pause()
+											panting.play()
+											//e.type == 'enter' ? panting.play() : panting.pause()
 										})
 										.on('progress', (e) => {
 											console.log(e.progress.toFixed(3))
